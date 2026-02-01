@@ -34,17 +34,20 @@ def makeIf(line):
                 file.write(f'\tif (strcmp{string}", {string2}") == 1) {sla}\n')
     if line[start + 1] != '"':
         if "==" in expression:
-            start2 = line.find("(")
+            start2 = line.find("(") + 1
+            mid = line.find("==")
             end2 = line.rfind(")")
 
-            content = line[start2:end2]
+            comp1 = line[start2:mid]
+            comp2 = line[mid + 3:end2]
 
-            file.write(f'\tif ({content}) {sla}\n')
+            file.write(f'\tif ({comp1} == {comp2}) {sla}\n')
         elif "!=" in expression:
             start2 = line.find("(") + 1
             mid = line.find("!=")
             end2 = line.rfind(")")
 
-            content = line[start2:mid:end2]
+            comp1 = line[start2:mid]
+            comp2 = line[mid:end2]
 
-            file.write(f'\tif ({content})) {sla}\n')
+            file.write(f'\tif ({comp1} != {comp2}) {sla}\n')
