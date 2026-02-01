@@ -1,2 +1,5 @@
 var int x = 10;
-var str y = "string";
+
+if (x == 10) {
+    out("test");
+}

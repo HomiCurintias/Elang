@@ -1,0 +1,2 @@
+if system almost done;
+fixes on "out" function;
