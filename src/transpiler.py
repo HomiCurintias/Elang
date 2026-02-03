@@ -19,6 +19,10 @@ def transpilate(txt):
 
         elif line.startswith("if"):
             ifsys.makeIf(line)
+        
+        elif line.startswith("} else") or line.startswith("else"):
+            with open("../cache/elang.c", "a") as file:
+                file.write("\telse \n\t{\n")
 
         elif line == "}":
             with open("../cache/elang.c", "a") as file:

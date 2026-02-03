@@ -12,3 +12,6 @@ if (x != "string") {
 if (y == 10) {
     out("test3");
 }
+else {
+    out("test4");
+}

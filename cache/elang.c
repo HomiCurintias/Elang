@@ -12,6 +12,10 @@ int main(void) {
 	if (y == 10) {
 	printf("test3\n");
 	}
+	else 
+	{
+	printf("test4\n");
+	}
 
 	return 0;
 }
