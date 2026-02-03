@@ -6,12 +6,13 @@ if (x != x) {
 }
 
 if (x != "string") {
-    out("test2")
+    out("test2");
 }
 
 if (y == 10) {
     out("test3");
-}
-else {
-    out("test4");
+} else {
+    if (y > 9) {
+        out("67");
+    }
 }

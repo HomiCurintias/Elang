@@ -14,7 +14,9 @@ int main(void) {
 	}
 	else 
 	{
-	printf("test4\n");
+	if (y > 9) {
+	printf("67\n");
+	}
 	}
 
 	return 0;
