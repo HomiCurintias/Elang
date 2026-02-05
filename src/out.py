@@ -15,7 +15,7 @@ def out(line):
             elif var.checkVar(variable) == "string":
                 file.write(f'\tprintf("%s\\n", {variable});\n')
             else:
-                file.write(f'variable: "{variable}" do not exist.')
+                file.write(f'\tprintf({variable});\n')
         else:
             end = line.rfind(");") - 0
 

@@ -1,6 +1,7 @@
 import var
 import out
 import ifsys
+import funcs
 
 def transpilate(txt):
     lines = txt.splitlines()
@@ -18,7 +19,6 @@ def transpilate(txt):
             out.out(line)
 
         elif line.startswith("if"):
-            print(f"[DEBUG] IF LINE: {line!r}")
             ifsys.makeIf(line)
         
         elif line.startswith("} else"):
@@ -28,7 +28,27 @@ def transpilate(txt):
         elif line.startswith("else"):
             with open("../cache/elang.c", "a") as file:
                 file.write("\telse \n\t{\n")
+        
+        elif line.startswith("fn"):
+            funcs.makeFunc(line)
 
         elif line.startswith("}"):
             with open("../cache/elang.c", "a") as file:
                 file.write("\t}\n")
+
+        else:
+            with open("../cache/elang.c", "a") as file:
+                try:
+                    end = line.find("(")
+
+                    name = line[:end]
+
+                    if funcs.fnCheck(name) == 1:
+                        file.write(f'\t{line}\n')
+                except:
+                    end = line.rfind("=") - 1
+
+                    name = line[:end]
+
+                    if var.checkVar(name) != "":
+                        file.write(f'\t{line}\n')

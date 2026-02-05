@@ -1,18 +1,9 @@
-var str x = "string";
-var int y = 10;
-
-if (x != x) {
-    out("test");
-}
-
-if (x != "string") {
-    out("test2");
-}
-
-if (y == 10) {
-    out("test3");
-} else {
-    if (y > 9) {
-        out("67");
+fn test(int age) {
+    if (age < 18) {
+        out("minor");
+    } else {
+        out("idk");
     }
 }
+
+test(13);
