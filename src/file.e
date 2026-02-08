@@ -1,9 +1,3 @@
-fn test(int age) {
-    if (age < 18) {
-        out("minor");
-    } else {
-        out("idk");
-    }
+fn test(int a, int b) {
+    return(a + b);
 }
-
-test(13);

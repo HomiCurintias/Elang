@@ -2,6 +2,7 @@ import var
 import out
 import ifsys
 import funcs
+import returnsys
 
 def transpilate(txt):
     lines = txt.splitlines()
@@ -35,6 +36,9 @@ def transpilate(txt):
         elif line.startswith("}"):
             with open("../cache/elang.c", "a") as file:
                 file.write("\t}\n")
+        
+        elif line.startswith("return"):
+            returnsys.makeReturn(line)
 
         else:
             with open("../cache/elang.c", "a") as file:
