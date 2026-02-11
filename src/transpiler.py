@@ -3,6 +3,7 @@ import out
 import ifsys
 import funcs
 import returnsys
+import whilesys
 
 def transpilate(txt):
     lines = txt.splitlines()
@@ -39,6 +40,9 @@ def transpilate(txt):
         
         elif line.startswith("return"):
             returnsys.makeReturn(line)
+        
+        elif line.startswith("while"):
+            whilesys.makeWhile(line)
 
         else:
             with open("../cache/elang.c", "a") as file:
