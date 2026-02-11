@@ -1,24 +1,31 @@
 import var
+import funcs
 
 def out(line):
-    file = open("../cache/elang.c", "a")
+    with open("../cache/elang.c", "a") as file:
+        if line.startswith('out('):
+            start = line.find("out(") + 4
 
-    if line.startswith('out('):
-        start = line.find("out(") + 4
+            if line[start] != '"':
+                end = line.rfind(");")
+                variable = line[start:end].strip()
 
-        if line[start] != '"':
-            end = line.rfind(");") - 0
-            variable = line[start:end]
+                if var.checkVar(variable) == "int":
+                    file.write(f'\tprintf("%d\\n", {variable});\n')
+                elif var.checkVar(variable) == "string":
+                    file.write(f'\tprintf("%s\\n", {variable});\n')
+                else:
+                    call_start = variable.find("(")
+                    if call_start != -1:
+                        name = variable[:call_start].strip()
 
-            if var.checkVar(variable) == "int":
-                file.write(f'\tprintf("%d\\n", {variable});\n')
-            elif var.checkVar(variable) == "string":
-                file.write(f'\tprintf("%s\\n", {variable});\n')
+                        if funcs.fnCheck(name) == "int":
+                            file.write(f'\tprintf("%d\\n", {variable});\n')
+                        elif funcs.fnCheck(name) == "str":
+                            file.write(f'\tprintf("%s\\n", {variable});\n')
             else:
-                file.write(f'\tprintf({variable});\n')
-        else:
-            end = line.rfind(");") - 0
+                end = line.rfind(");")
 
-            content = line[start:end]
+                content = line[start:end]
 
-            file.write(f'\tprintf({content[:-1]}\\n");\n')
+                file.write(f'\tprintf({content[:-1]}\\n");\n')

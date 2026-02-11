@@ -1,18 +1,25 @@
-fns = []
+fns = {}
 
 def makeFunc(line):
     line = line.strip()
     if not line.startswith("fn"):
         return
 
-    fn_start = line.find("fn") + 2
-    while fn_start < len(line) and line[fn_start] == " ":
-        fn_start += 1
+    signature_start = line.find("fn") + 2
+    while signature_start < len(line) and line[signature_start] == " ":
+        signature_start += 1
 
-    namEnd = line.find("(")
+    namEnd = line.find("(", signature_start)
     if namEnd == -1:
         return
-    name = line[fn_start:namEnd].strip()
+
+    head = line[signature_start:namEnd].strip()
+    head_parts = head.split()
+    if len(head_parts) != 2:
+        return
+
+    ret_type = head_parts[0]
+    name = head_parts[1]
 
     paramsEnd = line.rfind(")")
     if paramsEnd == -1 or paramsEnd < namEnd:
@@ -41,13 +48,17 @@ def makeFunc(line):
 
     params_c_str = ", ".join(params_c) if params_c else "void"
 
-    with open("../cache/elang.c", "a") as file:
-        file.write(f"\tint {name}({params_c_str}) " + "{\n")
+    if ret_type == "int":
+        with open("../cache/elang.c", "a") as file:
+            file.write(f"\tint {name}({params_c_str}) " + "{\n")
 
-    fns.append(name)
+            fns[name] = "int"
+    elif ret_type == "str":
+        with open("../cache/elang.c", "a") as file:
+            file.write(f"\tchar* {name}({params_c_str}) " + "{\n")
+
+            fns[name] = "str"
+    
 
 def fnCheck(name):
-    if name in fns:
-        return 1
-    else:
-        return 0
+    return fns.get(name, 0)

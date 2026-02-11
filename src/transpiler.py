@@ -47,7 +47,7 @@ def transpilate(txt):
 
                     name = line[:end]
 
-                    if funcs.fnCheck(name) == 1:
+                    if funcs.fnCheck(name) != 0:
                         file.write(f'\t{line}\n')
                 except:
                     end = line.rfind("=") - 1

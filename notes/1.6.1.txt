@@ -1,0 +1,1 @@
+out can now print functions;
