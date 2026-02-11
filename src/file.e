@@ -1,3 +1,3 @@
-while("sahur" != "odin din dum") {
-    out("sabric");
+while("test" != "test2") {
+    out("test3");
 }
