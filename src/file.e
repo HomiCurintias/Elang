@@ -1,3 +1,3 @@
-while("test" != "test2") {
-    out("test3");
-}
+include test.e;
+
+out(sum(1, 1));
